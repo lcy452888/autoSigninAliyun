@@ -7,7 +7,7 @@
 const updateAccesssTokenURL = "https://auth.aliyundrive.com/v2/account/token"
 const signinURL = "https://member.aliyundrive.com/v1/activity/sign_in_list"
 const refreshToeknArry = [
-    "",
+    "ed450ded700f4d5a80cf8368070a2ec5"，
     ""
     ]
 
@@ -19,18 +19,18 @@ const notify = require('./sendNotify');
     for (const elem of refreshToeknArry) {
         
         const queryBody = {
-            'grant_type': 'refresh_token',
+            'grant_type': 'refresh_token'，
             'refresh_token': elem
         };
 
         //使用 refresh_token 更新 access_token
         fetch(updateAccesssTokenURL, {
-            method: "POST",    
-            body: JSON.stringify(queryBody),
+            method: "POST"，    
+            body: JSON.stringify(queryBody)，
 		    headers: {'Content-Type': 'application/json'}
         })
-        .then((res) => res.json())
-        .then((json) => {
+        。then((res) => res.json())
+        。then((json) => {
             // console.log(json);
 
             let access_token = json.access_token;
@@ -39,26 +39,26 @@ const notify = require('./sendNotify');
             
             //签到
             fetch(signinURL, {
-                method: "POST",
-                body: JSON.stringify(queryBody),
+                method: "POST"，
+                body: JSON.stringify(queryBody)，
                 headers: {'Authorization': 'Bearer '+access_token,'Content-Type': 'application/json'}
             })
-            .then((res) => res.json())
-            .then((json) => {
+            。then((res) => res.json())
+            。then((json) => {
                 console.log(json);
             })
-            .catch((err) => console.log(err))
+            。catch((err) => console.log(err))
             
         })
-        .catch((err) => console.log(err))
+        。catch((err) => console.log(err))
 
 
     }
     // await notify.sendNotifyBark(`v2free 自动签到结果`,allnotify)
     
 
-})().catch((e) => {
+})()。catch((e) => {
     console.error(`❗️  运行错误！\n${e}`)
-}).finally()
+})。finally()
 // notify.sendNotify(`v2free 自动签到结果`,allnotify)
 
